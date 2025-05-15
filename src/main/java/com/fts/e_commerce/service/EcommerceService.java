@@ -5,6 +5,9 @@ import com.fts.e_commerce.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class EcommerceService {
@@ -24,5 +27,14 @@ public class EcommerceService {
          */
 
         userRepository.save(userEntity);
+    }
+
+    public List<UserEntity> searchUserDetails(String searchString) {
+        return userRepository.searchUserDetails(searchString);
+    }
+
+    public UserEntity getUserDetailsById(Integer id) {
+        Optional<UserEntity> user =  userRepository.findById(Long.valueOf(id));
+        return user.get();
     }
 }
