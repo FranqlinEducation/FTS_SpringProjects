@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Checkout - ShopEasy</title>
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background: #f9fafb;
+          color: #333;
+          padding: 20px;
+        }
+
+        header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          max-width: 1000px;
+          margin: 0 auto 40px;
+          padding: 10px 20px;
+          background: white;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          border-radius: 10px;
+          position: sticky;
+          top: 0;
+          z-index: 10;
+        }
+
+        header h1 {
+          font-weight: 700;
+          font-size: 1.8rem;
+          color: #2563eb;
+          cursor: pointer;
+        }
+
+        .cart-icon {
+          position: relative;
+          font-size: 28px;
+          cursor: pointer;
+          color: #2563eb;
+        }
+
+        .cart-count {
+          position: absolute;
+          top: -8px;
+          right: -10px;
+          background: #ef4444;
+          color: white;
+          border-radius: 50%;
+          font-size: 14px;
+          padding: 2px 7px;
+          font-weight: 700;
+          user-select: none;
+        }
+
+        main {
+          max-width: 600px;
+          margin: 0 auto;
+          background: white;
+          border-radius: 15px;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+          padding: 30px 40px;
+        }
+
+        h2 {
+          color: #2563eb;
+          margin-top: 0;
+          margin-bottom: 25px;
+          text-align: center;
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 18px;
+        }
+
+        label {
+          font-weight: 600;
+          color: #111827;
+        }
+
+        select, input, textarea {
+          padding: 12px;
+          border: 1px solid #cbd5e1;
+          border-radius: 8px;
+          font-size: 1rem;
+          font-family: inherit;
+          resize: vertical;
+        }
+
+        textarea {
+          min-height: 80px;
+        }
+
+        /* Cart summary */
+        .summary {
+          margin-top: 30px;
+          border-top: 1px solid #e5e7eb;
+          padding-top: 20px;
+        }
+
+        .summary-item {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 12px;
+          font-weight: 600;
+          color: #2563eb;
+        }
+
+        .total {
+          font-size: 1.2rem;
+          font-weight: 700;
+          color: #ef4444;
+        }
+
+        .btn-place-order {
+          margin-top: 30px;
+          background: #10b981;
+          color: white;
+          border: none;
+          padding: 15px 20px;
+          font-weight: 700;
+          font-size: 1.1rem;
+          border-radius: 12px;
+          cursor: pointer;
+          transition: background 0.3s;
+          user-select: none;
+        }
+
+        .btn-place-order:hover {
+          background: #059669;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+        }
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1 onclick="window.location.href='index.html'">🛒 ShopEasy</h1>
+    <div style="display: flex; gap: 20px; align-items: center;">
+        <div class="cart-icon" style="cursor: pointer;" onclick="window.location.href='e_cart.html'">
+            <i class="fas fa-shopping-cart"></i>
+            <div class="cart-count">3</div>
+        </div>
+        <div class="cart-icon" style="cursor: pointer;" title="View Orders" onclick="window.location.href='orders.html'">
+            <i class="fas fa-box-open"></i>
+        </div>
+    </div>
+</header>
+
+<main>
+    <h2>Checkout</h2>
+    <form id="checkoutForm">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required placeholder="Ramu D" />
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required placeholder="sample@example.com" />
+
+        <label for="existingAddress">Select Existing Address</label>
+        <select id="existingAddress" name="existingAddress">
+            <option value="">-- Select or type below --</option>
+            <option value="JNTU, Hyderbad, TS ,India">Home - 123 Main St, JNTU, Hyderbad, TS ,India</option>
+            <option value="Vizag, AP , India">Work - 456 Oak Ave, Vizag, AP , India</option>
+            <option value="other">Other (Type below)</option>
+        </select>
+
+        <label for="address">Shipping Address</label>
+        <textarea id="address" name="address" required placeholder="123 Main St, City, Country"></textarea>
+
+        <div class="summary" aria-label="Order Summary">
+            <div class="summary-item">
+                <span>Laptop (Qty: 1)</span>
+                <span>$899</span>
+            </div>
+            <div class="summary-item">
+                <span>Headphones (Qty: 2)</span>
+                <span>$398</span>
+            </div>
+            <div class="summary-item total">
+                <span>Total</span>
+                <span>$1,297</span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-place-order">Place Order</button>
+    </form>
+</main>
+
+<script>
+    const existingAddressSelect = document.getElementById('existingAddress');
+    const addressTextarea = document.getElementById('address');
+
+    existingAddressSelect.addEventListener('change', () => {
+      const val = existingAddressSelect.value;
+      if (val && val !== 'other') {
+        addressTextarea.value = val;
+        addressTextarea.readOnly = true;
+      } else {
+        addressTextarea.value = '';
+        addressTextarea.readOnly = false;
+      }
+    });
+
+    // Simple form submit handler (demo only)
+    document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Thank you for your order! Your order has been placed.');
+      window.location.href = 'orders.html'; // Redirect to orders page after submission
+    });
+</script>
+<footer>
+    <p>&copy; 2025 Franqlin Ecommerce App. All rights reserved.</p>
+</footer>
+</body>
+</html>

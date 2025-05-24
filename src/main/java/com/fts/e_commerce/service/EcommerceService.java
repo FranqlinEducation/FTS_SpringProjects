@@ -1,4 +1,4 @@
-package com.fts.e_commerce.service;
+package com.fts.e_commerce.serviceIml;
 
 import com.fts.e_commerce.entity.UserEntity;
 import com.fts.e_commerce.repository.UserRepository;

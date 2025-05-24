@@ -1,7 +1,7 @@
 package com.fts.e_commerce.controller;
 
 import com.fts.e_commerce.entity.UserEntity;
-import com.fts.e_commerce.service.EcommerceService;
+import com.fts.e_commerce.serviceIml.EcommerceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

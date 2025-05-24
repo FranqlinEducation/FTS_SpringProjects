@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Franqlin Ecommerce Store</title>
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background: #f9fafb;
+          color: #333;
+          padding: 20px;
+        }
+
+        header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          max-width: 1000px;
+          margin: 0 auto 40px;
+          padding: 10px 20px;
+          background: white;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          border-radius: 10px;
+          position: sticky;
+          top: 0;
+          z-index: 10;
+        }
+
+        header h1 {
+          font-weight: 700;
+          font-size: 1.8rem;
+          color: #2563eb;
+        }
+
+        .cart-icon {
+          position: relative;
+          font-size: 28px;
+          cursor: pointer;
+          color: #2563eb;
+        }
+
+        .cart-count {
+          position: absolute;
+          top: -8px;
+          right: -10px;
+          background: #ef4444;
+          color: white;
+          border-radius: 50%;
+          font-size: 14px;
+          padding: 2px 7px;
+          font-weight: 700;
+          user-select: none;
+        }
+
+        main {
+          max-width: 1000px;
+          margin: 0 auto;
+          display: flex;
+          gap: 40px;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        /* Product cards */
+        .product-list {
+          flex: 2;
+          display: grid;
+          grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+          gap: 20px;
+        }
+
+        .product-card {
+          background: white;
+          border-radius: 15px;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+          padding: 15px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+          cursor: pointer;
+        }
+
+        .product-img {
+          width: 150px;
+          height: 150px;
+          object-fit: contain;
+          margin-bottom: 15px;
+        }
+
+        .product-name {
+          font-weight: 700;
+          font-size: 1.1rem;
+          margin-bottom: 8px;
+          color: #111827;
+        }
+
+        .product-price {
+          font-weight: 600;
+          font-size: 1rem;
+          color: #2563eb;
+          margin-bottom: 15px;
+        }
+
+        .btn-add {
+          background: #2563eb;
+          color: white;
+          border: none;
+          padding: 10px 18px;
+          border-radius: 8px;
+          font-weight: 600;
+          letter-spacing: 0.05em;
+          transition: background 0.3s;
+          width: 100%;
+        }
+
+        .btn-add:hover {
+          background: #1e40af;
+          cursor: pointer;
+        }
+
+        /* Cart */
+        .cart {
+          flex: 1;
+          background: white;
+          border-radius: 15px;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+          padding: 20px;
+          max-height: 600px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+
+        .cart h2 {
+          margin-top: 0;
+          color: #2563eb;
+          margin-bottom: 15px;
+          text-align: center;
+        }
+
+        .cart-items {
+          flex-grow: 1;
+          overflow-y: auto;
+          margin-bottom: 20px;
+        }
+
+        .cart-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid #e5e7eb;
+          padding: 10px 0;
+        }
+
+        .cart-item-name {
+          font-weight: 600;
+          flex: 2;
+        }
+
+        .cart-item-qty {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex: 1;
+        }
+
+        .qty-btn {
+          background: #2563eb;
+          color: white;
+          border: none;
+          border-radius: 6px;
+          font-size: 18px;
+          width: 28px;
+          height: 28px;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          user-select: none;
+          transition: background 0.3s;
+        }
+        .qty-btn:hover {
+          background: #1e40af;
+        }
+
+        .qty-number {
+          font-weight: 600;
+          width: 24px;
+          text-align: center;
+        }
+
+        .cart-item-price {
+          flex: 1;
+          font-weight: 700;
+          color: #ef4444;
+          text-align: right;
+        }
+
+        .checkout-btn {
+          background: #10b981;
+          color: white;
+          border: none;
+          padding: 15px 20px;
+          font-weight: 700;
+          font-size: 1.1rem;
+          border-radius: 12px;
+          cursor: pointer;
+          transition: background 0.3s;
+          width: 100%;
+          user-select: none;
+        }
+
+        .checkout-btn:hover {
+          background: #059669;
+        }
+
+        /* Dummy disabled state for demo */
+        .btn-disabled {
+          background: #94a3b8 !important;
+          cursor: not-allowed !important;
+        }
+
+        /* Scrollbar styling for cart */
+        .cart-items::-webkit-scrollbar {
+          width: 6px;
+        }
+        .cart-items::-webkit-scrollbar-thumb {
+          background: #2563eb;
+          border-radius: 3px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+          main {
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .cart {
+            width: 90%;
+            max-height: none;
+          }
+
+          .product-list {
+            width: 100%;
+          }
+        }
+         footer {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+        }
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>🛒 Franqlin Ecommerce Store</h1>
+    <div style="display: flex; gap: 20px; align-items: center;">
+        <!-- Cart icon -->
+        <div class="cart-icon" style="cursor: pointer;" onclick="window.location.href='e_cart.html'">
+            <i class="fas fa-shopping-cart"></i>
+            <div class="cart-count">3</div>
+        </div>
+        <!-- Orders icon -->
+        <div class="cart-icon" style="cursor: pointer;" title="View Orders" onclick="window.location.href='e_order.html'">
+            <i class="fas fa-box-open"></i>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="product-list" aria-label="Product listing">
+        <article class="product-card" tabindex="0">
+            <img
+                    src="https://via.placeholder.com/150?text=Laptop"
+                    alt="Laptop"
+                    class="product-img"
+            />
+            <div class="product-name">Laptop</div>
+            <div class="product-price">$899</div>
+            <button class="btn-add btn-disabled" title="Add Laptop to cart (disabled)">Add to Cart</button>
+        </article>
+
+        <article class="product-card" tabindex="0">
+            <img
+                    src="https://via.placeholder.com/150?text=Headphones"
+                    alt="Headphones"
+                    class="product-img"
+            />
+            <div class="product-name">Headphones</div>
+            <div class="product-price">$199</div>
+            <button class="btn-add btn-disabled" title="Add Headphones to cart (disabled)">Add to Cart</button>
+        </article>
+
+        <article class="product-card" tabindex="0">
+            <img
+                    src="https://via.placeholder.com/150?text=Smartphone"
+                    alt="Smartphone"
+                    class="product-img"
+            />
+            <div class="product-name">Smartphone</div>
+            <div class="product-price">$599</div>
+            <button class="btn-add btn-disabled" title="Add Smartphone to cart (disabled)">Add to Cart</button>
+        </article>
+
+        <article class="product-card" tabindex="0">
+            <img
+                    src="https://via.placeholder.com/150?text=Camera"
+                    alt="Camera"
+                    class="product-img"
+            />
+            <div class="product-name">Camera</div>
+            <div class="product-price">$299</div>
+            <button class="btn-add btn-disabled" title="Add Camera to cart (disabled)">Add to Cart</button>
+        </article>
+    </section>
+
+</main>
+<footer>
+    <p>&copy; 2025 Franqlin Ecommerce App. All rights reserved.</p>
+</footer>
+</body>
+</html>
